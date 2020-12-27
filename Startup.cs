@@ -14,19 +14,13 @@ namespace CourseReactorAPI
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
