@@ -5,9 +5,19 @@ namespace CourseReactorAPI.API.v1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CookiesController : Controller
     {
-        // Get a specific cookie
+        /// <summary>
+        ///    Gets an individual cookie by its id
+        /// </summary>
+        /// <param name="id">The specific cookie's id</param>
+        /// <returns>A Json result containing the individual cookie data</returns>
+        [HttpGet("get")]
+        public async Task<JsonResult> GetCookie(int id)
+        {
+            return Json("Here is your cookie with the id: " + id);
+        }
 
         // Get a specific amount of cookies, default 10
 
