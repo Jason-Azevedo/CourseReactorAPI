@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CourseReactorAPI.API.v1.Controllers
+namespace CourseReactorAPI.Controllers
 {
     [ApiController]
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     public class CookiesController : Controller
     {
         /// <summary>

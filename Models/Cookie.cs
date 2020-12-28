@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CourseReactorAPI.API.v1.Models
+namespace CourseReactorAPI.Models
 {
     public class Cookie
     {
