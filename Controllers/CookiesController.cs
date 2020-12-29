@@ -1,5 +1,8 @@
 using System.Threading.Tasks;
+using CourseReactorAPI.Models;
+using CourseReactorAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CourseReactorAPI.Controllers
 {
@@ -7,6 +10,16 @@ namespace CourseReactorAPI.Controllers
     [Route("api/[controller]")]
     public class CookiesController : Controller
     {
+
+        private ICookieRepository _repo;
+        private ILogger<CookiesController> _logger;
+
+        public CookiesController(ILogger<CookiesController> logger, ICookieRepository repo)
+        {
+            _repo = repo;
+            _logger = logger;
+        }
+
         /// <summary>
         ///    Gets an individual cookie by its id
         /// </summary>
@@ -15,7 +28,7 @@ namespace CourseReactorAPI.Controllers
         [HttpGet("get")]
         public async Task<JsonResult> GetCookie(int id)
         {
-            return Json("Here is your cookie with the id: " + id);
+            return Json(_repo.GetById(id));
         }
 
         // Get a specific amount of cookies, default 10

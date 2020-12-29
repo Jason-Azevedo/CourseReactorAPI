@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CourseReactorAPI.Repositories;
 
 namespace CourseReactorAPI
 {
@@ -15,6 +16,7 @@ namespace CourseReactorAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<ICookieRepository, CookieRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
