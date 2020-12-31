@@ -10,6 +10,15 @@ namespace CourseReactorAPI.Repositories
         {
         }
 
+        private void InitializeTables()
+        {
+        }
+
+        public void AddFakeDataToTables()
+        {
+
+        }
+
         public void Delete(int id)
         {
             throw new System.NotImplementedException();
@@ -41,5 +50,36 @@ namespace CourseReactorAPI.Repositories
         {
             throw new System.NotImplementedException();
         }
+    }
+
+    static class CookieQueries
+    {
+        public const string CREATE_TABLE = 
+            @"CREATE TABLE IF NOT EXISTS Cookies (
+                Name VARCHAR(40),
+                Desc VARCHAR(344),
+                Ingredients TEXT,
+                Recipe TEXT
+            )"; 
+
+        public const string INSERT = 
+            @"INSERT INTO Cookies (Name, Desc, Ingredients, Recipe) VALUES (?,?,?,?)";
+
+        public const string GET_BY_ID = 
+            @"SELECT * FROM Cookies WHERE rowid = ?";
+
+        public const string GET_BY_AMOUNT = 
+            @"SELECT * FROM Cookies LIMIT ?";
+
+        public const string UPDATE = 
+            @"UPDATE Cookies SET
+                Name = ?,
+                Desc = ?,
+                Ingredients = ?,
+                Recipe = ?
+                WHERE rowid = ?";
+
+        public const string DELETE = 
+            @"DELETE FROM Cookies WHERE rowrowid = ?";
     }
 }
