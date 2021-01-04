@@ -25,18 +25,54 @@ namespace CourseReactorAPI.Controllers
         /// </summary>
         /// <param name="id">The specific cookie's id</param>
         /// <returns>A Json result containing the individual cookie data</returns>
-        [HttpGet("get")]
-        public async Task<JsonResult> GetCookie(int id)
+        [HttpGet("getone")]
+        public JsonResult GetCookie(int id)
         {
             return Json(_repo.GetById(id));
         }
 
-        // Get a specific amount of cookies, default 10
+        [HttpGet("getamount")]
+        public JsonResult GetCookies(int amount)
+        {
+            var cookies = _repo.GetByAmount(amount);
 
-        // Create a new cookie
+            return Json(cookies);
+        }
 
-        // Update an existing cookie
+        [HttpPost("create")]
+        public StatusCodeResult MakeCookie([FromBody] Cookie cookie)
+        {
+            if (cookie.Name != string.Empty 
+                && cookie.Description != string.Empty 
+                && cookie.Recipe != string.Empty)
+            {
+                _repo.Insert(cookie);
+                return Ok();
+            }
 
-        // Delete a cookie
+            return BadRequest();
+        }
+
+        [HttpPatch("update")]
+        public StatusCodeResult UpdateCookie([FromBody] Cookie cookie)
+        {
+            if (cookie.Id != 0 
+                && cookie.Name != string.Empty 
+                && cookie.Description != string.Empty 
+                && cookie.Recipe != string.Empty)
+            {
+                _repo.Update(cookie);
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("delete")]
+        public StatusCodeResult DeleteCookie(int id)
+        {
+            _repo.Delete(id);
+            return Ok();
+        }
     }
 }

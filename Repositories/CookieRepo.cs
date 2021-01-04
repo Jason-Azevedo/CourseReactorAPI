@@ -18,11 +18,6 @@ namespace CourseReactorAPI.Repositories
             cmd.ExecuteNonQuery();
         }
 
-        public void AddFakeDataToTables()
-        {
-
-        }
-
         public void Insert(Cookie cookie)
         {
             using var cmd = new SQLiteCommand(CookieQueries.INSERT, _conn);

@@ -8,15 +8,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CourseReactorAPI.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace CourseReactorAPI
 {
+
     public class Startup
     {
+        public IConfigurationRoot Configuration {get; set;}
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ICookieRepository, CookieRepository>();
+            services.AddSingleton<ICookieRepository>(x => 
+                new CookieRepository("Data Source=cookie.db"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
