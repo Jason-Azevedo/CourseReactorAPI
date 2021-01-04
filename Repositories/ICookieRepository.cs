@@ -6,6 +6,7 @@ namespace CourseReactorAPI.Repositories
 {
     public interface ICookieRepository
     {
+       public void Insert(Cookie cookie); 
        public Cookie GetById(int id); 
        public List<Cookie> GetByAmount(int amount);
        public void Update(Cookie item);
