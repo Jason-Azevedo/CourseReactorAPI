@@ -27,6 +27,7 @@ namespace CourseReactorAPI.Repositories
             cmd.Parameters.AddWithValue("$Recipe", cookie.Recipe);
             cmd.ExecuteNonQuery();
         }
+
         public Cookie GetById(int id)
         {
             using var cmd = new SQLiteCommand(CookieQueries.GET_BY_ID, _conn);
@@ -34,6 +35,9 @@ namespace CourseReactorAPI.Repositories
 
             using var reader = cmd.ExecuteReader();
             reader.Read();
+            
+            // Item not found
+            if (!reader.HasRows) return null;
 
             return new Cookie
             {
@@ -53,6 +57,9 @@ namespace CourseReactorAPI.Repositories
             using var reader = cmd.ExecuteReader();
             while(reader.Read())
             {
+                // Items not found
+                if (!reader.HasRows) break;
+
                 var cookie = new Cookie
                 {
                     Id               = reader.GetInt32(0),
@@ -110,7 +117,7 @@ namespace CourseReactorAPI.Repositories
             @"UPDATE Cookies SET
                 Name = $Name,
                 Desc = $Desc,
-                Recipe = $Recipe,
+                Recipe = $Recipe
                 WHERE Id = $Id";
 
         public const string DELETE = 

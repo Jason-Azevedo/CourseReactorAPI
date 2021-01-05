@@ -25,22 +25,25 @@ namespace CourseReactorAPI.Controllers
         /// </summary>
         /// <param name="id">The specific cookie's id</param>
         /// <returns>A Json result containing the individual cookie data</returns>
-        [HttpGet("getone")]
-        public JsonResult GetCookie(int id)
+        [HttpGet("get")]
+        public IActionResult GetCookie(int id)
         {
-            return Json(_repo.GetById(id));
+            Cookie cookie = _repo.GetById(id);
+
+            if (cookie == null) return NotFound();
+            return Json(cookie);
         }
 
-        [HttpGet("getamount")]
-        public JsonResult GetCookies(int amount)
+        [HttpGet("getbatch")]
+        public IActionResult GetCookies(int amount)
         {
             var cookies = _repo.GetByAmount(amount);
-
+            
             return Json(cookies);
         }
 
         [HttpPost("create")]
-        public StatusCodeResult MakeCookie([FromBody] Cookie cookie)
+        public IActionResult MakeCookie([FromBody] Cookie cookie)
         {
             if (cookie.Name != string.Empty 
                 && cookie.Description != string.Empty 
@@ -54,7 +57,7 @@ namespace CourseReactorAPI.Controllers
         }
 
         [HttpPatch("update")]
-        public StatusCodeResult UpdateCookie([FromBody] Cookie cookie)
+        public IActionResult UpdateCookie([FromBody] Cookie cookie)
         {
             if (cookie.Id != 0 
                 && cookie.Name != string.Empty 
@@ -69,7 +72,7 @@ namespace CourseReactorAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public StatusCodeResult DeleteCookie(int id)
+        public IActionResult DeleteCookie(int id)
         {
             _repo.Delete(id);
             return Ok();
