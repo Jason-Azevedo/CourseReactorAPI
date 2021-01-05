@@ -45,9 +45,9 @@ namespace CourseReactorAPI.Controllers
         [HttpPost("create")]
         public IActionResult MakeCookie([FromBody] Cookie cookie)
         {
-            if (cookie.Name != string.Empty 
-                && cookie.Description != string.Empty 
-                && cookie.Recipe != string.Empty)
+            var cookieValidator = new CookieValidator();
+
+            if (cookieValidator.Validate(cookie))
             {
                 _repo.Insert(cookie);
                 return Ok();
@@ -59,10 +59,9 @@ namespace CourseReactorAPI.Controllers
         [HttpPatch("update")]
         public IActionResult UpdateCookie([FromBody] Cookie cookie)
         {
-            if (cookie.Id != 0 
-                && cookie.Name != string.Empty 
-                && cookie.Description != string.Empty 
-                && cookie.Recipe != string.Empty)
+            var cookieValidator = new CookieValidator(options => options.IdNotZero = true);
+
+            if (cookieValidator.Validate(cookie))
             {
                 _repo.Update(cookie);
                 return Ok();
