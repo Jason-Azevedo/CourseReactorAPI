@@ -21,7 +21,8 @@ namespace CourseReactorAPI.Controllers
         }
 
         /// <summary>
-        ///    Gets an individual cookie by its id
+        ///    Gets an individual cookie by its id provided by the id 
+        ///    url query parameter
         /// </summary>
         /// <param name="id">The specific cookie's id</param>
         /// <returns>A Json result containing the individual cookie data</returns>
@@ -34,6 +35,12 @@ namespace CourseReactorAPI.Controllers
             return Json(cookie);
         }
 
+        /// <summary>
+        ///     Gets an amount of cookies specified by the amount 
+        ///     url query parameter
+        /// </summary>
+        /// <param name="amount">Amount of cookies</param>
+        /// <returns>Json that contains an array of the cookies</returns>
         [HttpGet("getbatch")]
         public IActionResult GetCookies(int amount)
         {
@@ -42,6 +49,11 @@ namespace CourseReactorAPI.Controllers
             return Json(cookies);
         }
 
+        /// <summary>
+        ///     Creates a cookie with the provided data by the requests body
+        /// </summary>
+        /// <param name="cookie">The cookie data from the request body</param>
+        /// <returns>A http status code</returns>
         [HttpPost("create")]
         public IActionResult MakeCookie([FromBody] Cookie cookie)
         {
@@ -56,6 +68,11 @@ namespace CourseReactorAPI.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        ///     Updates a cookie with the provided data in the request body
+        /// </summary>
+        /// <param name="cookie">The specific cookie's new details</param>
+        /// <returns>A http status result</returns>
         [HttpPatch("update")]
         public IActionResult UpdateCookie([FromBody] Cookie cookie)
         {
@@ -70,6 +87,11 @@ namespace CourseReactorAPI.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        ///     Deletes the specific cookie specified by it's id
+        /// </summary>
+        /// <param name="id">The id of the cookie to be deleted</param>
+        /// <returns>A http status result</returns>
         [HttpDelete("delete")]
         public IActionResult DeleteCookie(int id)
         {

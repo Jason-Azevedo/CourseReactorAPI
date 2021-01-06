@@ -9,6 +9,14 @@ namespace CourseReactorAPI.Repositories
     {
         private SQLiteConnection _conn;
 
+        /// <summary>
+        ///     Creates the connection to the sqlite db and opens it, 
+        ///     thereafter creating the cookie table if it does not exist
+        /// </summary>
+        /// <param name="conn">
+        ///     The string that represents the sqlite connection
+        ///     string
+        /// </param>
         public CookieRepository(string conn)
         {
             _conn = new SQLiteConnection(conn);
@@ -18,6 +26,11 @@ namespace CourseReactorAPI.Repositories
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        ///     Inserts an entry into the cookie table based on the 
+        ///     properties of the supplied Cookie object
+        /// </summary>
+        /// <param name="cookie">The Cookie object to be inserted into the db</param>
         public void Insert(Cookie cookie)
         {
             using var cmd = new SQLiteCommand(CookieQueries.INSERT, _conn);
@@ -28,6 +41,11 @@ namespace CourseReactorAPI.Repositories
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        ///     Gets the specific entry as a Cookie object
+        /// </summary>
+        /// <param name="id">The id of the cookie</param>
+        /// <returns>A Cookie object instance with the relevant data based on the id</returns>
         public Cookie GetById(int id)
         {
             using var cmd = new SQLiteCommand(CookieQueries.GET_BY_ID, _conn);
@@ -48,6 +66,11 @@ namespace CourseReactorAPI.Repositories
             };
         }
 
+        /// <summary>
+        ///     Gets a specified amount of entries as Cookie objects
+        /// </summary>
+        /// <param name="amount">The amount of cookies to be fetched from the db</param>
+        /// <returns>A List of Cookie objects</returns>
         public List<Cookie> GetByAmount(int amount)
         {
             var cookies = new List<Cookie>();
@@ -74,6 +97,11 @@ namespace CourseReactorAPI.Repositories
             return cookies;
         }
 
+        /// <summary>
+        ///     Updates the specific entry based on the provided Cookie objects id
+        ///     with that object's properties
+        /// </summary>
+        /// <param name="cookie">The Cookie to be updated with it's new values</param>
         public void Update(Cookie cookie)
         {
             using var cmd = new SQLiteCommand(CookieQueries.UPDATE, _conn);
@@ -85,6 +113,10 @@ namespace CourseReactorAPI.Repositories
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        ///     Deletes an entry based on the id supplied
+        /// </summary>
+        /// <param name="id">The id of the entry to be deleted</param>
         public void Delete(int id)
         {
             using var cmd = new SQLiteCommand(CookieQueries.DELETE, _conn);
